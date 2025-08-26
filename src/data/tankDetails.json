@@ -1,0 +1,4 @@
+{
+  "P120987398": { "tankId": "T1001", "status": "Filling", "volume": "500L" },
+  "P120988421": { "tankId": "T1002", "status": "Idle", "volume": "0L" }
+}

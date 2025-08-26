@@ -1,0 +1,14 @@
+[
+  {
+    "email": "admin@gmail.com",
+    "password": "1234",
+    "name": "Atharva",
+    "token": "fake-jwt-token-for-johndoe"
+  },
+  {
+    "email": "admin@hempel.com",
+    "password": "adminpassword",
+    "name": "Jane Smith",
+    "token": "fake-jwt-token-for-janesmith"
+  }
+]
