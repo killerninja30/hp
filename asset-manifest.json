@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/hempel/static/css/main.39b5a3be.css",
+    "main.js": "/hempel/static/js/main.09cdecbd.js",
+    "static/media/filling.png": "/hempel/static/media/filling.2f78fc7daa2794ed85fb.png",
+    "index.html": "/hempel/index.html",
+    "main.39b5a3be.css.map": "/hempel/static/css/main.39b5a3be.css.map",
+    "main.09cdecbd.js.map": "/hempel/static/js/main.09cdecbd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39b5a3be.css",
+    "static/js/main.09cdecbd.js"
+  ]
+}
