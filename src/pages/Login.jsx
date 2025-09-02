@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/authSlice'; // From the previous step
-import * as authService from '../redux/authService'; // Import our new service
-import './Login.css'; // We'll update this file next
+import { loginSuccess } from '../redux/authSlice'; 
+import * as authService from '../redux/authService'; 
+import './Login.css'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');

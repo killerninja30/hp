@@ -3,8 +3,9 @@
 export const login = async (email, password) => {
   // Fetch the user data from the public folder
   const response = await fetch('/users.json');
+  
   const users = await response.json();
-
+  
   // Find a user that matches the email and password
   const user = users.find(
     (u) => u.email === email && u.password === password

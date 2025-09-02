@@ -1,38 +1,30 @@
-import { useDispatch } from "react-redux";
-import { setSelectedItem } from "../redux/pageSlice";
-//import { RxTextAlignJustify } from "react-icons/rx";
-import {FaBox,FaClipboardList,FaFillDrip,FaCheckCircle,FaIndustry,FaHandsHelping,FaOilCan} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { FaBox, FaClipboardList, FaFillDrip, FaCheckCircle, FaIndustry, FaHandsHelping, FaOilCan } from "react-icons/fa";
+
 function Sidebar() {
-  const dispatch = useDispatch();
-  
-
-    const pageIcons = {
-    "Daily Checklist": <FaBox />,
-    "Logbook": <FaClipboardList />,
-    "Filling": <FaFillDrip />,
-    "QC": <FaCheckCircle />,
-    "Manufacturing": <FaIndustry />,
-    "Tank Services": <FaHandsHelping />,
-    "Support": <FaOilCan />,
-  };
-
-const pages = Object.keys(pageIcons);
+  const pages = [
+    { name: "Daily Checklist", path: "/daily-checklist", icon: <FaBox /> },
+    { name: "Logbook", path: "/logbook", icon: <FaClipboardList /> },
+    { name: "Filling", path: "/filling", icon: <FaFillDrip /> },
+    { name: "QC", path: "/qc", icon: <FaCheckCircle /> },
+    { name: "Manufacturing", path: "/manufacturing", icon: <FaIndustry /> },
+    { name: "Tank Services", path: "/tank-services", icon: <FaHandsHelping /> },
+    { name: "Support", path: "/support", icon: <FaOilCan /> },
+  ];
 
   return (
     <div className="sidebar">
-      <div className="sidebarhead">
-       
-        {pages.map((page, index) => (
-          <div
-            key={index}
-            className="sidebar-item"
-            onClick={() => dispatch(setSelectedItem(page))}
-          >
-            {pageIcons[page]} <span style={{ marginLeft: "8px" }}>{page}</span>
-          </div>
-        ))}
-      </div>
+      {pages.map((page, index) => (
+        <NavLink 
+          key={index}
+          to={page.path}
+          className={({ isActive }) => isActive ? "sidebar-item active" : "sidebar-item"}
+        >
+          {page.icon} <span style={{ marginLeft: "8px" }}>{page.name}</span>
+        </NavLink>
+      ))}
     </div>
   );
 }
+
 export default Sidebar;

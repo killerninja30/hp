@@ -401,3 +401,44 @@ body {
     padding: 20px;
   }
 }
+
+  .profile-container {
+  position: relative;
+}
+
+.profile-logo {
+  background: #48bb78;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  min-width: 120px;
+  z-index: 100;
+}
+
+.profile-menu p {
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.profile-menu p:hover {
+  background: #f0f0f0;
+}
