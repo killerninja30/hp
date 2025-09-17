@@ -1,0 +1,60 @@
+.F-header{
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    
+}
+.filling-lines-container {
+   padding: 20px;
+  max-width: 100%; /* Prevents overflow */
+  overflow-x: hidden;
+}
+
+.filling-lines-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filling-lines-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.filling-lines-grid {
+ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filling-line-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.filling-line-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.filling-line-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.filling-line-card p {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
