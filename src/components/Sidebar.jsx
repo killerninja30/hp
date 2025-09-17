@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FaBox, FaClipboardList, FaFillDrip, FaCheckCircle, FaIndustry, FaHandsHelping, FaOilCan } from "react-icons/fa";
-
+import "../css/Sidebar.css";
 function Sidebar() {
   const pages = [
     { name: "Daily Checklist", path: "/daily-checklist", icon: <FaBox /> },

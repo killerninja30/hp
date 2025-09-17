@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import tankDataRaw from "../data/tankData.json";
 import TankCard from "../components/TankCard";
 import TankModal from "../components/TankModal";
-import "./QC.css";
+import "../css/QC.css";
 
 export default function QC() {
   const [tanks, setTanks] = useState([]);

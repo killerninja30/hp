@@ -60,16 +60,22 @@ export default function TankModal({ tank, onClose, onEventTrigger }) {
 
         {/* Event buttons below */}
         <div className="event-buttons">
-          {EVENT_TYPES.map(ev => (
-            <button
-              key={ev}
-              onClick={() => onEventTrigger(tank.id, ev)}
-              className="event-btn"
-            >
-              {ev}
-            </button>
-          ))}
-        </div>
+  {EVENT_TYPES.map(ev => {
+    const isActive =
+      tank.events && tank.events.length > 0 && tank.events[0].title === ev && !tank.events[0].end;
+
+    return (
+      <button
+        key={ev}
+        className={`event-btn ${isActive ? "active" : ""}`}
+        onClick={() => onEventTrigger(tank.id, ev)}
+      >
+        {ev}
+        {isActive && <span className="active-indicator">●</span>}
+      </button>
+    );
+  })}
+</div>
       </div>
     </div>
   );

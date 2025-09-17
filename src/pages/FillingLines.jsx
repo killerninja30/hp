@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 import FillingLineCard from "../components/FillingLineCard";
 import fillingLinesData from "../data/fillingLines.json";
 import tankDetailsData from "../data/tankDetails.json";
-import "./pages.css";
+import "../css/FL.css";
 
 const FillingLines = () => {
   const [lines, setLines] = useState([]);
@@ -45,10 +45,7 @@ const FillingLines = () => {
 
       {selectedLine && (
         <div className="tank-details">
-          <h3>{selectedLine.name} - Tank Info</h3>
-          <p>ID: {selectedLine.tankDetails?.tankId}</p>
-          <p>Status: {selectedLine.tankDetails?.status}</p>
-          <p>Volume: {selectedLine.tankDetails?.volume}</p>
+        
         </div>
       )}
     </div>

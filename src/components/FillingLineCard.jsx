@@ -1,6 +1,6 @@
 import React from "react";
 import fillingImage from "../assets/filling.png";
-import "./com.css";
+import "../css/FLcard.css";
 
 const FillingLineCard = ({ line, onClick }) => {
   return (
