@@ -27,6 +27,11 @@ function IssueForm({ onSubmit, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // ✅ Log all form data
+    console.log("Form Submitted Data:", form);
+
+    // Pass data to parent
     onSubmit({ type: "Issue", status: "Open", ...form });
   };
 
@@ -143,7 +148,7 @@ function IssueForm({ onSubmit, onCancel }) {
                 value={form.department}
                 onChange={handleChange}
               >
-                <option value="Select Department" ></option>
+                <option value="Select Department"></option>
                 <option value="QC">QC</option>
                 <option value="Mani">Mani</option>
               </select>

@@ -33,6 +33,11 @@ function RequestForm({ onSubmit, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // ✅ Log all form data
+    console.log("Request Form Submitted Data:", form);
+
+    // Pass data to parent
     onSubmit({ type: "Request", status: "Open", ...form });
   };
 

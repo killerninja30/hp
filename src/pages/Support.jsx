@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import IssueForm from "../components/IssueForm";
 import RequestForm from "../components/RequestForm";
 import data from "../data/supportData.json";
-import "../css/Support.css";
+import styles from "../css/Support.module.css";
 
 export default function SupportPage() {
   const [records, setRecords] = useState(data);
@@ -15,18 +15,18 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="support-container">
-      <div className="form-buttons">
+    <div className={styles.supportContainer}>
+      <div className={styles.formButtons}>
         <button
           type="button"
-          className="form-button issue-button"
+          className={`${styles.formButton} ${styles.issueButton}`}
           onClick={() => setActiveForm("issue")}
         >
           Log Incident
         </button>
         <button
           type="button"
-          className="form-button request-button"
+          className={`${styles.formButton} ${styles.requestButton}`}
           onClick={() => setActiveForm("request")}
         >
           Request Material
@@ -40,13 +40,13 @@ export default function SupportPage() {
         <RequestForm onSubmit={addRecord} onCancel={() => setActiveForm(null)} />
       )}
 
-      <div className="records-table">
+      <div className={styles.recordsTable}>
         <table>
-          <thead className="table-header">
+          <thead className={styles.tableHeader}>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Type</th>
-              <th scope="col">Title / Material</th>
+              <th scope="col">Title</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
             </tr>
@@ -54,29 +54,31 @@ export default function SupportPage() {
           <tbody>
             {records.length > 0 ? (
               records.map((r) => (
-                <tr className="table-row" key={r.id}>
-                  <td className="table-cell id-cell">{r.id}</td>
-                  <td className="table-cell">{r.type}</td>
-                  <td className="table-cell title-cell">
+                <tr className={styles.tableRow} key={r.id}>
+                  <td className={`${styles.tableCell} ${styles.idCell}`}>
+                    {r.id}
+                  </td>
+                  <td className={styles.tableCell}>{r.type}</td>
+                  <td className={`${styles.tableCell} ${styles.titleCell}`}>
                     {r.title || r.material}
                   </td>
-                  <td className="table-cell">
+                  <td className={styles.tableCell}>
                     <span
-                      className={`status-cell ${
+                      className={`${styles.statusCell} ${
                         r.status === "Open"
-                          ? "status-open"
+                          ? styles.statusOpen
                           : r.status === "In Progress"
-                          ? "status-inprogress"
-                          : "status-closed"
+                          ? styles.statusInprogress
+                          : styles.statusClosed
                       }`}
                     >
                       {r.status}
                     </span>
                   </td>
-                  <td className="table-cell">
+                  <td className={styles.tableCell}>
                     <button
                       type="button"
-                      className="view-button"
+                      className={styles.viewButton}
                       onClick={() => setViewRecord(r)}
                     >
                       View
@@ -86,7 +88,7 @@ export default function SupportPage() {
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="empty-state">
+                <td colSpan="5" className={styles.emptyState}>
                   <i className="fas fa-inbox"></i>
                   <p>No issues or requests yet.</p>
                 </td>
@@ -98,22 +100,36 @@ export default function SupportPage() {
 
       {/* View Modal */}
       {viewRecord && (
-        <div className="view-modal">
-          <div className="view-modal-content">
+        <div className={styles.viewModal}>
+          <div className={styles.viewModalContent}>
             <h3>{viewRecord.type} Details</h3>
-            <p><strong>ID:</strong> {viewRecord.id}</p>
-            {viewRecord.title && <p><strong>Title:</strong> {viewRecord.title}</p>}
+            <p>
+              <strong>ID:</strong> {viewRecord.id}
+            </p>
+            {viewRecord.title && (
+              <p>
+                <strong>Title:</strong> {viewRecord.title}
+              </p>
+            )}
             {viewRecord.material && (
-              <p><strong>Material:</strong> {viewRecord.material}</p>
+              <p>
+                <strong>Material:</strong> {viewRecord.material}
+              </p>
             )}
             {viewRecord.description && (
-              <p><strong>Description:</strong> {viewRecord.description}</p>
+              <p>
+                <strong>Description:</strong> {viewRecord.description}
+              </p>
             )}
-            <p><strong>Status:</strong> {viewRecord.status}</p>
-            <p><strong>Date:</strong> {viewRecord.date}</p>
+            <p>
+              <strong>Status:</strong> {viewRecord.status}
+            </p>
+            <p>
+              <strong>Date:</strong> {viewRecord.date}
+            </p>
             <button
               type="button"
-              className="close-button"
+              className={styles.closeButton}
               onClick={() => setViewRecord(null)}
             >
               Close

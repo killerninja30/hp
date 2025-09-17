@@ -1,0 +1,174 @@
+
+/* Support container */
+.supportContainer {
+  padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+}
+
+/* Table Container & Scrolling */
+.recordsTableWrapper {
+  
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+              0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.recordsTableWrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Sticky Table Header */
+.tableHeader th {
+  position: sticky;
+  top: 0;
+  background-color: #0033A0;
+  color: #fff;
+  padding: 1rem;
+  text-align: left;
+  z-index: 10;
+}
+
+/* Table Body & Cell Styling */
+.tableRow {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableRow:hover {
+  background-color: #f1f5f9;
+}
+
+.tableCell {
+  padding: 1rem;
+  color: #334155;
+}
+
+.idCell {
+  font-weight: bold;
+}
+
+.titleCell {
+  font-style: san-serif;
+}
+
+/* Buttons */
+.formButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.formButton {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.issueButton {
+  background-color: #0033A0;
+  color: white;
+}
+
+.issueButton:hover {
+  background-color: #dc2626;
+}
+
+.requestButton {
+  background-color: #0033A0;
+  color: white;
+}
+
+.requestButton:hover {
+  background-color: #2563eb;
+}
+
+.viewButton {
+  background-color: #0033A0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.viewButton:hover {
+  background-color: #059669;
+}
+
+.closeButton {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.closeButton:hover {
+  background-color: #4b5563;
+}
+
+/* Status Labels */
+.statusCell {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.statusOpen {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.statusInprogress {
+  background-color: #dbeafe;
+  color: #1e3a8a;
+}
+
+.statusClosed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem;
+}
+
+/* Modal */
+.viewModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.viewModalContent {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
