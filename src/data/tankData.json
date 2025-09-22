@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "Tank A1",
+    "capacity": 5000,
+    "filled": 3200,
+    "currentHourLitres": 180,
+    "previousHourLitres": 150,
+    "events": [
+      {
+        "id": "e_202509020900",
+        "type": "manual",
+        "title": "Valve Opened",
+        "start": "2025-09-02T09:00:00",
+        "end": "2025-09-02T09:05:00",
+        "operator": "John Doe",
+        "notes": "Opened valve for cleaning"
+      },
+       {
+        "id": "e_202509020900",
+        "type": "manual",
+        "title": "Valve Opened",
+        "start": "2025-09-02T09:00:00",
+        "end": "2025-09-02T09:05:00",
+        "operator": "John Doe",
+        "notes": "Opened valve for cleaning"
+      },
+      {
+        "id": "e_202509021130",
+        "type": "machine",
+        "title": "Auto Fill",
+        "start": "2025-09-02T11:30:00",
+        "end": "2025-09-02T11:30:00",
+        "operator": "System",
+        "notes": "Automatically filled to maintain level"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Tank B1",
+    "capacity": 8000,
+    "filled": 4500,
+    "currentHourLitres": 240,
+    "previousHourLitres": 200,
+    "events": [
+      {
+        "id": "e_202509020845",
+        "type": "manual",
+        "title": "Maintenance Check",
+        "start": "2025-09-02T08:45:00",
+        "end": "2025-09-02T09:00:00",
+        "operator": "Jane Smith",
+        "notes": "Checked sensor calibration"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Tank C1",
+    "capacity": 3000,
+    "filled": 900,
+    "currentHourLitres": 60,
+    "previousHourLitres": 80,
+    "events": []
+  }
+]
