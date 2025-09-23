@@ -1,17 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "../css/SupportForm.css";
 
-function IssueForm({ onSubmit, onCancel }) {
-  const [form, setForm] = useState({
+function IncidentForm({ onSubmit, onCancel }) {
+  const [formType, setFormType] = useState("Issue"); // default to Issue
+
+  const initialIssueForm = {
     requesterName: "",
     onBehalfOf: "",
     title: "",
     description: "",
+    attachment: null,
     criticality: "Low",
     priority: "Low",
     location: "Line 1",
     department: "Select Department",
-  });
+  };
+
+  const initialRequestForm = {
+    requesterName: "",
+    onBehalfOf: "",
+    title: "",
+    description: "",
+    attachment: null,
+    materialType: "Denester",
+    materialName: "",
+    uom: "",
+    unit: "",
+    urgencyLevel: "Low",
+    location: "Line 1",
+    expectedDeliveryTime: "",
+    department: "Select Department",
+  };
+
+  const [form, setForm] = useState(initialIssueForm);
 
   // 🔒 Lock body scroll when popup is open
   useEffect(() => {
@@ -21,31 +42,36 @@ function IssueForm({ onSubmit, onCancel }) {
     };
   }, []);
 
+  const handleTypeChange = (e) => {
+    const type = e.target.value;
+    setFormType(type);
+    setForm(type === "Issue" ? initialIssueForm : initialRequestForm);
+  };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, files } = e.target;
+    if (name === "attachment") {
+      setForm({ ...form, [name]: files[0] || null });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // ✅ Log all form data
-    console.log("Form Submitted Data:", form);
-
-    // Pass data to parent
-    onSubmit({ type: "Issue", status: "Open", ...form });
+    const submissionData = {
+      type: formType,
+      status: "Open",
+      name: "requested/issue",
+      startedAt: new Date().toISOString(),
+      ...form,
+    };
+    console.log("Form Submitted Data:", submissionData);
+    onSubmit(submissionData);
   };
 
   const handleClear = () => {
-    setForm({
-      requesterName: "",
-      onBehalfOf: "",
-      title: "",
-      description: "",
-      criticality: "Low",
-      priority: "Low",
-      location: "Line 1",
-      department: "Select Department",
-    });
+    setForm(formType === "Issue" ? initialIssueForm : initialRequestForm);
   };
 
   return (
@@ -53,16 +79,29 @@ function IssueForm({ onSubmit, onCancel }) {
       <div className="popup-content">
         {/* Header */}
         <div className="popup-header">
-          <h2 className="popup-title">Log New Incident</h2>
+          <h2 className="popup-title">Log New {formType}</h2>
           <button className="close-button" onClick={onCancel}>
             ×
           </button>
         </div>
 
+        {/* Form Type Selector */}
+        <div className="form-group">
+          <label className="form-label">Select Incident Type</label>
+          <select
+            className="form-select"
+            value={formType}
+            onChange={handleTypeChange}
+          >
+            <option value="Issue">Issue</option>
+            <option value="Request">Request</option>
+          </select>
+        </div>
+
         {/* Form */}
         <form onSubmit={handleSubmit} className="form-container compact">
           <div className="form-grid">
-            {/* Requester Name */}
+            {/* Shared Fields */}
             <div className="form-group">
               <label className="form-label">Requester Name</label>
               <input
@@ -74,7 +113,6 @@ function IssueForm({ onSubmit, onCancel }) {
               />
             </div>
 
-            {/* On Behalf Of */}
             <div className="form-group">
               <label className="form-label">On Behalf Of</label>
               <input
@@ -85,7 +123,6 @@ function IssueForm({ onSubmit, onCancel }) {
               />
             </div>
 
-            {/* Title */}
             <div className="form-group">
               <label className="form-label">Title</label>
               <input
@@ -97,35 +134,136 @@ function IssueForm({ onSubmit, onCancel }) {
               />
             </div>
 
-            {/* Criticality */}
-            <div className="form-group">
-              <label className="form-label">Criticality</label>
-              <select
-                name="criticality"
-                className="form-select"
-                value={form.criticality}
+            {/* Description moved just after Title */}
+            <div className="form-group full-width">
+              <label className="form-label">Description</label>
+              <textarea
+                name="description"
+                className="form-textarea"
+                value={form.description}
                 onChange={handleChange}
-              >
-                <option value="High">High</option>
-                <option value="Low">Low</option>
-              </select>
+                required
+              />
             </div>
 
-            {/* Priority */}
-            <div className="form-group">
-              <label className="form-label">Priority</label>
-              <select
-                name="priority"
-                className="form-select"
-                value={form.priority}
+            {/* Attachment field */}
+            <div className="form-group full-width">
+              <label className="form-label">Attachment (Photo)</label>
+              <input
+                type="file"
+                name="attachment"
+                accept="image/*"
+                className="form-input"
                 onChange={handleChange}
-              >
-                <option value="High">High</option>
-                <option value="Low">Low</option>
-              </select>
+              />
             </div>
 
-            {/* Location */}
+            {/* Issue-specific fields */}
+            {formType === "Issue" && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Criticality</label>
+                  <select
+                    name="criticality"
+                    className="form-select"
+                    value={form.criticality}
+                    onChange={handleChange}
+                  >
+                    <option value="High">High</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Priority</label>
+                  <select
+                    name="priority"
+                    className="form-select"
+                    value={form.priority}
+                    onChange={handleChange}
+                  >
+                    <option value="High">High</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+              </>
+            )}
+
+            {/* Request-specific fields */}
+            {formType === "Request" && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Material Type</label>
+                  <select
+                    name="materialType"
+                    className="form-select"
+                    value={form.materialType}
+                    onChange={handleChange}
+                  >
+                    <option value="Denester">Denester</option>
+                    <option value="Lid Printer">Lid Printer</option>
+                    <option value="Pallet Mag">Pallet Mag</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Material Name</label>
+                  <input
+                    name="materialName"
+                    className="form-input"
+                    value={form.materialName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">UOM</label>
+                  <input
+                    name="uom"
+                    className="form-input"
+                    value={form.uom}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Unit</label>
+                  <input
+                    name="unit"
+                    className="form-input"
+                    value={form.unit}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Urgency Level</label>
+                  <select
+                    name="urgencyLevel"
+                    className="form-select"
+                    value={form.urgencyLevel}
+                    onChange={handleChange}
+                  >
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Expected Delivery Time</label>
+                  <input
+                    type="date"
+                    name="expectedDeliveryTime"
+                    className="form-input"
+                    value={form.expectedDeliveryTime}
+                    onChange={handleChange}
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Shared again */}
             <div className="form-group">
               <label className="form-label">Location</label>
               <select
@@ -139,7 +277,6 @@ function IssueForm({ onSubmit, onCancel }) {
               </select>
             </div>
 
-            {/* Department */}
             <div className="form-group">
               <label className="form-label">Responsible Department</label>
               <select
@@ -148,23 +285,11 @@ function IssueForm({ onSubmit, onCancel }) {
                 value={form.department}
                 onChange={handleChange}
               >
-                <option value="Select Department"></option>
+                <option value="Select Department">Select Department</option>
                 <option value="QC">QC</option>
                 <option value="Mani">Mani</option>
               </select>
             </div>
-          </div>
-
-          {/* Description full width */}
-          <div className="form-group full-width">
-            <label className="form-label">Description</label>
-            <textarea
-              name="description"
-              className="form-textarea"
-              value={form.description}
-              onChange={handleChange}
-              required
-            />
           </div>
 
           {/* Actions */}
@@ -185,4 +310,4 @@ function IssueForm({ onSubmit, onCancel }) {
   );
 }
 
-export default IssueForm;
+export default IncidentForm;

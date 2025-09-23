@@ -1,0 +1,160 @@
+/* Sidebar.module.css */
+
+/* Sidebar Base */
+.sidebar {
+  border-right: 1px solid var(--border-color);
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  padding: 25px 0;
+  width: 280px;
+  color: var(--text-dark);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.closedSidebar {
+  width: 80px;
+}
+
+/* Sidebar Headings */
+.sidebarHead {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  padding: 0 25px 15px;
+  border-bottom: 2px solid var(--border-color);
+  color: var(--primary-color);
+}
+
+.sidebarSection {
+  margin-bottom: 25px;
+  padding: 0 15px;
+}
+
+.sectionTitle {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 15px;
+  padding: 0 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar Items */
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 5px 10px;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sidebarItem i {
+  width: 20px;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.activeItem {
+  background-color: rgba(26, 75, 140, 0.1);
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.activeItem i {
+  color: var(--primary-color);
+}
+
+.sidebarItem:hover {
+  background-color: #f1f5f9;
+  transform: translateX(3px);
+}
+
+/* Hide text when collapsed */
+.closedSidebar .sidebarItem span {
+  display: none;
+}
+
+/* Content shift when sidebar toggles */
+.contentSidebarOpen {
+  margin-left: 280px; /* width of open sidebar */
+  transition: margin-left 0.3s ease;
+}
+
+.contentSidebarClosed {
+  margin-left: 80px; /* width of collapsed sidebar */
+  transition: margin-left 0.3s ease;
+}
+
+/* Tablet and Mobile Handling */
+
+ /* --- Mobile / Tablet auto-close behaviour --- */
+
+/* Tablet / small devices */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
+    z-index: 999;
+    transition: transform 0.28s ease, width 0.28s ease;
+  }
+
+  .closedSidebar {
+    transform: translateX(-100%);
+    width: 0;
+  }
+
+  /* Auto-close when a nav item receives focus (click/tap) or is active.
+     NOTE: uses :has() — supported in modern Chromium + Safari browsers. */
+  .sidebar:has(.sidebarItem:focus),
+  .sidebar:has(.sidebarItem:active),
+  .sidebar:has(.activeItem:focus) {
+    transform: translateX(-100%);
+    width: 0;
+  }
+
+  /* On small screens, don't push content (sidebar overlays content) */
+  .contentSidebarOpen,
+  .contentSidebarClosed {
+    margin-left: 0;
+  }
+}
+
+/* Small phone */
+@media (max-width: 425px) {
+  .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
+    z-index: 999;
+    width: 60%;
+    transition: transform 0.28s ease, width 0.28s ease;
+    max-width: 300px;
+  }
+
+  .closedSidebar {
+    transform: translateX(-100%);
+    width: 0;
+  }
+
+  /* Same auto-close behaviour for very small screens */
+  .sidebar:has(.sidebarItem:focus),
+  .sidebar:has(.sidebarItem:active),
+  .sidebar:has(.activeItem:focus) {
+    transform: translateX(-100%);
+    width: 0;
+  }
+}

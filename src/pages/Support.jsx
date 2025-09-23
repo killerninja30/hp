@@ -1,21 +1,34 @@
 import React, { useState } from "react";
 import IssueForm from "../components/IssueForm";
-import RequestForm from "../components/RequestForm";
 import data from "../data/supportData.json";
 import styles from "../css/Support.module.css";
 
 export default function SupportPage() {
   const [records, setRecords] = useState(data);
   const [activeForm, setActiveForm] = useState(null);
-  const [viewRecord, setViewRecord] = useState(null); // new state for viewing
+  const [viewRecord, setViewRecord] = useState(null);
+
+  // filters
+  const [statusFilter, setStatusFilter] = useState("Open"); // default Open
+  const [typeFilter, setTypeFilter] = useState("All"); // default All
 
   const addRecord = (record) => {
     setRecords([...records, { id: records.length + 1, ...record }]);
     setActiveForm(null);
   };
 
+  // apply filters
+  const filteredRecords = records.filter((r) => {
+  const statusMatch = statusFilter === "All" || r.status === statusFilter;
+  const typeMatch =
+    typeFilter === "All" || r.type.toLowerCase() === typeFilter.toLowerCase();
+  return statusMatch && typeMatch;
+  });
+
   return (
     <div className={styles.supportContainer}>
+      {/* Button */}
+    <div className={styles.topSection}>
       <div className={styles.formButtons}>
         <button
           type="button"
@@ -24,24 +37,40 @@ export default function SupportPage() {
         >
           Log Incident
         </button>
-        <button
-          type="button"
-          className={`${styles.formButton} ${styles.requestButton}`}
-          onClick={() => setActiveForm("request")}
-        >
-          Request Material
-        </button>
       </div>
 
+      {/* Incident Form */}
       {activeForm === "issue" && (
         <IssueForm onSubmit={addRecord} onCancel={() => setActiveForm(null)} />
       )}
-      {activeForm === "request" && (
-        <RequestForm onSubmit={addRecord} onCancel={() => setActiveForm(null)} />
-      )}
 
+      {/* Filters */}
+      <div className={styles.filters}>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className={styles.dropdown}
+        >
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Closed">Closed</option>
+          <option value="All">All Status</option>
+        </select>
+
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          className={styles.dropdown}
+        >
+          <option value="All">All Incidents</option>
+          <option value="issue">Issue</option>
+          <option value="request">Request</option>
+        </select>
+      </div>
+    </div>
+      {/* Records Table */}
       <div className={styles.recordsTable}>
-        <table>
+        <table className={styles.table}>
           <thead className={styles.tableHeader}>
             <tr>
               <th scope="col">ID</th>
@@ -52,8 +81,8 @@ export default function SupportPage() {
             </tr>
           </thead>
           <tbody>
-            {records.length > 0 ? (
-              records.map((r) => (
+            {filteredRecords.length > 0 ? (
+              filteredRecords.map((r) => (
                 <tr className={styles.tableRow} key={r.id}>
                   <td className={`${styles.tableCell} ${styles.idCell}`}>
                     {r.id}
@@ -90,7 +119,7 @@ export default function SupportPage() {
               <tr>
                 <td colSpan="5" className={styles.emptyState}>
                   <i className="fas fa-inbox"></i>
-                  <p>No issues or requests yet.</p>
+                  <p>No matching incidents found.</p>
                 </td>
               </tr>
             )}
@@ -99,44 +128,43 @@ export default function SupportPage() {
       </div>
 
       {/* View Modal */}
-      {viewRecord && (
-        <div className={styles.viewModal}>
-          <div className={styles.viewModalContent}>
-            <h3>{viewRecord.type} Details</h3>
-            <p>
-              <strong>ID:</strong> {viewRecord.id}
-            </p>
-            {viewRecord.title && (
-              <p>
-                <strong>Title:</strong> {viewRecord.title}
-              </p>
-            )}
-            {viewRecord.material && (
-              <p>
-                <strong>Material:</strong> {viewRecord.material}
-              </p>
-            )}
-            {viewRecord.description && (
-              <p>
-                <strong>Description:</strong> {viewRecord.description}
-              </p>
-            )}
-            <p>
-              <strong>Status:</strong> {viewRecord.status}
-            </p>
-            <p>
-              <strong>Date:</strong> {viewRecord.date}
-            </p>
-            <button
-              type="button"
-              className={styles.closeButton}
-              onClick={() => setViewRecord(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+     {viewRecord && (
+  <div className={styles.viewModal}>
+    <div className={styles.viewModalContent}>
+      <button
+        type="button"
+        className={styles.closeIcon}
+        onClick={() => setViewRecord(null)}
+      >
+        ×
+      </button>
+
+      <h3>{viewRecord.type} Details</h3>
+
+      <div className={styles.viewDetails}>
+        <p><strong>ID:</strong> {viewRecord.id}</p>
+        <p><strong>Type:</strong> {viewRecord.type}</p>
+        <p><strong>Title:</strong> {viewRecord.title || viewRecord.material}</p>
+        <p><strong>Description:</strong> {viewRecord.description}</p>
+        <p><strong>Status:</strong> {viewRecord.status}</p>
+        <p><strong>Requested By:</strong> {viewRecord.requestedBy || "N/A"}</p>
+        <p><strong>Issue Started At:</strong> {viewRecord.issueStartedAt || "N/A"}</p>
+        <p><strong>Date Created:</strong> {viewRecord.date}</p>
+        <p><strong>Comments:</strong> {viewRecord.comments || "No comments"}</p>
+        <p><strong>Modified On:</strong> {viewRecord.modifiedOn || "Not modified"}</p>
+        {viewRecord.attachment && (
+          <p>
+            <strong>Attachment:</strong>{" "}
+            <a href={viewRecord.attachment} target="_blank" rel="noopener noreferrer">
+              View
+            </a>
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

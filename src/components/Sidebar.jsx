@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { FaBox, FaClipboardList, FaFillDrip, FaCheckCircle, FaIndustry, FaHandsHelping, FaOilCan } from "react-icons/fa";
-import "../css/Sidebar.css";
-function Sidebar() {
+import styles from "../css/Sidebar.module.css";
+
+function Sidebar({ isOpen }) {
   const pages = [
     { name: "Daily Checklist", path: "/daily-checklist", icon: <FaBox /> },
     { name: "Logbook", path: "/logbook", icon: <FaClipboardList /> },
@@ -12,15 +13,20 @@ function Sidebar() {
     { name: "Support", path: "/support", icon: <FaOilCan /> },
   ];
 
+  const sidebarClass = isOpen ? styles.sidebar : `${styles.sidebar} ${styles.closedSidebar}`;
+
   return (
-    <div className="sidebar">
+    <div className={sidebarClass}>
       {pages.map((page, index) => (
-        <NavLink 
+        <NavLink
           key={index}
           to={page.path}
-          className={({ isActive }) => isActive ? "sidebar-item active" : "sidebar-item"}
+          className={({ isActive }) =>
+            isActive ? `${styles.sidebarItem} ${styles.activeItem}` : styles.sidebarItem
+          }
         >
-          {page.icon} <span style={{ marginLeft: "8px" }}>{page.name}</span>
+          {page.icon}
+          {isOpen && <span>{page.name}</span>}
         </NavLink>
       ))}
     </div>

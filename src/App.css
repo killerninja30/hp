@@ -25,17 +25,18 @@ body {
   min-height: 100vh;
 }
 
-
-
-
 /* Main Layout */
+/* Desktop/tablet: sidebar + content */
 .main-layout {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto 1fr; /* sidebar takes needed width, content fills */
+  gap: 20px;
   height: calc(100vh - 70px);
   margin-top: 70px;
   overflow: hidden;
 }
+
+/* Ensure only the content scrolls; page backdrop stays fixed */
 
 
 
@@ -45,7 +46,8 @@ body {
   background-color: #fff;
   flex: 1;
   margin: 20px;
-  padding: 30px;
+  margin-left: 0%;
+ 
   text-align: left;
   border-radius: 12px;
   border: 1px solid var(--border-color);
@@ -73,183 +75,52 @@ body {
   font-size: 1.1rem;
 }
 
-/* Card Styles */
-.card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: var(--shadow-light);
-  padding: 25px;
-  margin-bottom: 25px;
-  border: 1px solid var(--border-color);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.card-title {
-  font-size: 1.3rem;
-  color: var(--text-dark);
-  font-weight: 600;
-}
-
-.card-actions button {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.card-actions button:hover {
-  background: var(--secondary-color);
-  transform: translateY(-2px);
-}
-
-/* Checklist Styles */
-.checklist {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.checklist-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.checklist-item:last-child {
-  border-bottom: none;
-}
-
-.checklist-item input[type="checkbox"] {
-  margin-right: 15px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: var(--primary-color);
-}
-
-.checklist-item label {
-  font-size: 1rem;
-  color: var(--text-dark);
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.checklist-item input[type="checkbox"]:checked + label {
-  color: var(--text-light);
-  text-decoration: line-through;
-}
-
-/* Filling Lines Grid */
-.filling-lines-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.line-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: var(--shadow-light);
-  padding: 20px;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.line-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-medium);
-}
-
-.line-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: var(--primary-color);
-}
-
-.line-name {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
-
-.status-indicator {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.status-active {
-  background: var(--accent-color);
-}
-
-.status-inactive {
-  background: #e53e3e;
-}
-
-.status-idle {
-  background: #ed8936;
-}
-
-.line-number {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  background: var(--background-light);
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-family: monospace;
-  margin-top: 10px;
-}
 
 /* Responsive Design */
+/* Tablet Styles */
 @media (max-width: 768px) {
   .main-layout {
-    flex-direction: column;
+    display: flex; /* stack sidebar and content */
     height: auto;
+    padding: 10px;
   }
+
   
-  .sidebar {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 15px;
-  }
-  
+
   .navbar-search {
     display: none;
   }
-  
+
   .filling-lines-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .content {
-    margin: 10px;
-    padding: 20px;
+    width: 100%;
+    margin: 10px 0;
+   
+    box-sizing: border-box;
   }
 }
+
+/* Mobile / Small Phone Styles */
+@media (max-width: 425px) {
+  
+
+  .content {
+    margin: 5px 0;
+    padding: 15px;
+  }
+
+  .content-title {
+    font-size: 1.4rem;
+  }
+
+  .content-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
 
   .profile-container {
   position: relative;

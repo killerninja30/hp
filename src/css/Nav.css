@@ -3,16 +3,32 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #0033A0;
   height: 70px;
+  background: #0033A0;
   color: white;
-  text-align: left;
-  padding: 0 30px;
-  box-shadow: var(--shadow-medium);
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: var(--shadow-medium);
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
 }
 
 .navbar-brand {
@@ -38,46 +54,44 @@
   font-size: 1.5rem;
 }
 
-.navbar-actions {
-  display: flex;
-  gap: 20px;
+/* Profile container */
+.profile-container {
+  position: relative;
 }
 
-.navbar-search {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 8px 16px;
-}
-
-.navbar-search input {
-  background: transparent;
-  border: none;
+.profile-logo {
+  background: #48bb78;
   color: white;
-  padding: 4px;
-  width: 200px;
-  outline: none;
-}
-
-.navbar-search input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.navbar-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.user-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  min-width: 120px;
+  z-index: 100;
+}
+
+.profile-menu p {
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.profile-menu p:hover {
+  background: #f0f0f0;
 }

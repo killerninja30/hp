@@ -1,35 +1,28 @@
-
 [
   {
     "id": 1,
-    "type": "Issue",
-    "title": "Printer Not Working",
+    "type": "issue",
+    "title": "System Crash",
+    "description": "Application crashes when submitting a form.",
     "status": "Open",
-    "description": "The main office printer on the 2nd floor is not responding. It shows a 'Paper Jam' error but there is no paper jammed.",
-    "reportedBy": "Alice Johnson"
+    "requestedBy": "Alice",
+    "issueStartedAt": "2025-09-20 14:32",
+    "date": "2025-09-20",
+    "attachment": "https://via.placeholder.com/150",
+    "comments": "Initial report submitted.",
+    "modifiedOn": "2025-09-21 10:15"
   },
   {
     "id": 2,
-    "type": "Request",
-    "material": "A4 Paper Ream",
+    "type": "request",
+    "title": "New Laptop Request",
+    "description": "Need a new laptop for development team.",
     "status": "In Progress",
-    "quantity": 5,
-    "reason": "Stock is running low for the marketing department."
-  },
-  {
-    "id": 3,
-    "type": "Issue",
-    "title": "Cannot Access Shared Drive",
-    "status": "Open",
-    "description": "Users in the finance team are unable to access the 'Q3-Reports' folder on the shared network drive. They are receiving a 'Permission Denied' error.",
-    "reportedBy": "Bob Williams"
-  },
-  {
-    "id": 4,
-    "type": "Request",
-    "material": "Whiteboard Markers (Black)",
-    "status": "Open",
-    "quantity": 10,
-    "reason": "All markers in conference room 'Bravo' have dried out."
+    "requestedBy": "Bob",
+    "issueStartedAt": "2025-09-21 09:10",
+    "date": "2025-09-21",
+    "attachment": "https://via.placeholder.com/150",
+    "comments": "Request approved by manager.",
+    "modifiedOn": "2025-09-22 11:45"
   }
 ]

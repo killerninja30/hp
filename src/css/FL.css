@@ -11,6 +11,10 @@
   max-width: 100%; /* Prevents overflow */
   overflow-x: hidden;
 }
+.table{
+  width: 100%;
+
+}
 
 .filling-lines-header {
   display: flex;
