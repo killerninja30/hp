@@ -1,3 +1,7 @@
+/* Apply border-box globally */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 /* Support container */
 .supportContainer {
@@ -5,17 +9,22 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
- 
+  overflow: auto; /* scrolling works */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  
+}
+
+.supportContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Table Container & Scrolling */
 .recordsTableWrapper {
-  
   flex-grow: 1;
-  overflow-y: auto;
+  overflow: auto; /* scrolling works */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   background-color: #fff;
@@ -23,14 +32,19 @@
               0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+.recordsTableWrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .recordsTableWrapper table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table{
+.table {
   width: 100%;
 }
+
 /* Sticky Table Header */
 .tableHeader th {
   position: sticky;
@@ -47,7 +61,7 @@
 .tableRow {
   border-bottom: 1px solid #e2e8f0;
   padding: 8px 15px;
-   background-color: #f8fafc;
+  background-color: #f8fafc;
 }
 
 .tableRow:hover {
@@ -74,7 +88,6 @@
   margin-bottom: 1.5rem;
   flex-shrink: 0;
   justify-content: end;
-  
 }
 
 .formButton {
@@ -118,8 +131,6 @@
   background-color: #059669;
 }
 
-
-
 /* Status Labels */
 .statusCell {
   padding: 0.3rem 0.6rem;
@@ -151,7 +162,6 @@
 }
 
 /* Modal */
-/* Fullscreen overlay */
 .viewModal {
   position: fixed;
   top: 0;
@@ -165,22 +175,27 @@
   z-index: 2000;
 }
 
-/* Modal content box */
 .viewModalContent {
   background: #ffffff;
   width: 90%;
   max-width: 1100px;
-  height: 90%;
+  height: 80%;           /* reduced from 90% */
+  margin-top: 60px;      /* pushes content below navbar */
   border-radius: 12px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  overflow-y: auto;
+  overflow: auto; /* scrolling works */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
-/* Title */
+.viewModalContent::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .viewModalContent h3 {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -188,7 +203,6 @@
   font-weight: 600;
   color: #1a4b8c;
 }
-
 
 /* 3-column single view layout without cards */
 .viewDetails {
@@ -198,11 +212,10 @@
   flex-grow: 1;
 }
 
-/* individual field, single unified view */
 .viewDetails p {
-  background: none;      /* removed card background */
-  border: none;          /* remove border */
-  padding: 0;            /* remove padding */
+  background: none;
+  border: none;
+  padding: 0;
   font-size: 0.95rem;
   line-height: 1.4;
   color: #2d3748;
@@ -215,29 +228,6 @@
   color: #1a4b8c;
 }
 
-
-/* Close button (X) in top right */
-.closeIcon {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2d3748;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.closeIcon:hover {
-  color: #e53e3e;
-}
-
-
-/* Filter bar */
-
-
 /* Dropdown styles */
 .dropdown {
   padding: 8px 12px;
@@ -247,7 +237,6 @@
   color: var(--text-dark);
   font-size: 1rem;
   cursor: pointer;
-  
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   margin-right: 15px;
 }
@@ -262,10 +251,39 @@
   padding: 10px;
 }
 
+.title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.closebutton {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #666;
+  padding: 6px;
+  line-height: 1;
+}
+
+.closebutton:hover {
+  color: #c0392b;
+}
+
 /* Make sure on small screens they stack */
 @media (max-width: 600px) {
   .supportContainer {
-    padding: 0%;
+    padding: 0;
   }
   .filterBar {
     flex-direction: column;
@@ -275,4 +293,65 @@
   .dropdown {
     width: 100%;
   }
+}
+
+/* Boxes stacked vertically with interactive borders */
+.viewBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 2rem;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.viewBox:hover {
+  border-color: #1a4b8c;  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.viewBox:last-child {
+  margin-bottom: 0;
+}
+
+.viewBox p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #2d3748;
+}
+
+.viewBox strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+  color: #1a4b8c;
+}
+
+/* Attachment iframe */
+/* Attachment box container */
+.attachmentBox {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  max-width: 200px;   /* small box width */
+}
+
+/* Small image preview */
+.attachmentPreview {
+  width: 100%;
+  height: auto;       /* maintain aspect ratio */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.attachmentPreview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
